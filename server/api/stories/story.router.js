@@ -4,7 +4,7 @@ var router = require('express').Router();
 
 var HttpError = require('../../utils/HttpError');
 var Story = require('./story.model');
-var User = require('../users/user.model')
+var User = require('../users/user.model');
 
 router.param('id', function (req, res, next, id) {
   Story.findById(id)

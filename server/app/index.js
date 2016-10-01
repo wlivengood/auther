@@ -3,11 +3,17 @@
 var app = require('express')();
 var path = require('path');
 var session = require('express-session');
+// var bodyParser = require('body-parser');
 
 app.use(require('./logging.middleware'));
 
+// app.use(bodyParser.json());
+
+// app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(session({
-	secret: '$up3r$3cr3t'
+	secret: '$up3r$3cr3t',
+	cookie: {maxAge: 1000 * 60 * 20}
 }));
 
 app.use(function (req, res, next) {
@@ -15,9 +21,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/login', require('../login/login.router'));
-
 app.use(require('./request-state.middleware'));
+
+app.use('/login', require('../login/login.router'));
 
 app.use('/api', require('../api/api.router'));
 

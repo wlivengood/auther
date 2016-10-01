@@ -7,16 +7,13 @@ module.exports = router;
 
 router.post('/', function (req, res, next) {
   console.log(req.body);
-  User.findOne({
-    where: req.body
-  })
+  User.create({ req.body })
   .then(function (user) {
-    if (!user) {
-      res.sendStatus(401);
-    } else {
-      req.session.userId = user.id;
-      res.sendStatus(204);
-    }
+    if (user) {
+    	res.sendStatus(201)
+	}
+	else
+		res.sendStatus(400);
   })
   .catch(next);
 });
